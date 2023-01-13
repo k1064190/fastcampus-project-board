@@ -7,11 +7,11 @@ logging:
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.basicBinder: trace
 
-spirng:
+spring:
   datasource:
     url: jdbc:mysql://localhost:3306/board
-    username: k106419
-    password: !kkkk0414
+    username: uno
+    password: thisisTEST!@#$
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -21,9 +21,8 @@ spirng:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
-    h2.console.enabled: true
-    sql.init.mode: always
-    # thymeleaf.cache: false
+  h2.console.enabled: true
+  sql.init.mode: always
 
 ---
 
