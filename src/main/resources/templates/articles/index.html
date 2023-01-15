@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 페이지</title>
+</head>
+<body>
+<header th:replace="header :: header"></header>
+<main>
+    <!-- 필터: 제목, 본문, id, 닉네임, 해시태그 -->
+    <form>
+        <label for="search-type" hidden>유형</label>
+        <select id="search-type" name="search-type">
+            <option value="title">제목</option>
+            <option value="content">본문</option>
+            <option value="id">ID</option>
+            <option value="nickname">닉네임</option>
+            <option value="hashtag">해시태그</option>
+        </select>
+        <label for="search-value" hidden>검색</label>
+        <input type="search" id="search-value" name="search-value" placeholder="검색어를 입력하세요">
+        <button type="submit">검색</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>해시태그</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--        <tr th:each="article : ${articles}">-->
+        <!--            <td th:text="${article.title}"></td>-->
+        <!--            <td th:text="${article.hashtag}"></td>-->
+        <!--            <td th:text="${article.createdBy}"></td>-->
+        <!--            <td th:text="${article.createdAt}"></td>-->
+        <!--        </tr>-->
+        <tr>
+            <td>첫글</td>
+            <td>#java</td>
+            <td>Uno</td>
+            <td>2022-01-01</td>
+        </tr>
+        <tr>
+            <td>둘째글</td>
+            <td>#spring</td>
+            <td>Unoe</td>
+            <td>2022-02-03</td>
+        </tr>
+        <tr>
+            <td>세번째글</td>
+            <td>#jewe</td>
+            <td>Unowe</td>
+            <td>2023-01-01</td>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <table>
+            <thead>
+            <tr>
+                <th>이전</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>다음</th>
+            </tr>
+            </thead>
+        </table>
+    </nav>
+</main>
+<footer th:replace="footer :: footer"></footer>
+
+</body>
+</html>
