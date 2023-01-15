@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시판 페이지</title>
 </head>
 <body>
-<header th:replace="header :: header"></header>
+<header id="header"></header>
 <main>
     <!-- 필터: 제목, 본문, id, 닉네임, 해시태그 -->
     <form>
@@ -31,12 +31,6 @@
         </tr>
         </thead>
         <tbody>
-        <!--        <tr th:each="article : ${articles}">-->
-        <!--            <td th:text="${article.title}"></td>-->
-        <!--            <td th:text="${article.hashtag}"></td>-->
-        <!--            <td th:text="${article.createdBy}"></td>-->
-        <!--            <td th:text="${article.createdAt}"></td>-->
-        <!--        </tr>-->
         <tr>
             <td>첫글</td>
             <td>#java</td>
@@ -72,7 +66,7 @@
         </table>
     </nav>
 </main>
-<footer th:replace="footer :: footer"></footer>
+<footer id="footer"></footer>
 
 </body>
 </html>
