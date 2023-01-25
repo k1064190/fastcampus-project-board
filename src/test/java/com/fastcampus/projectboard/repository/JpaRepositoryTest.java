@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.repository;
 
 import com.fastcampus.projectboard.config.JpaConfig;
+import com.fastcampus.projectboard.createInstances;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
 import org.junit.jupiter.api.DisplayName;
@@ -48,7 +49,7 @@ class JpaRepositoryTest {
     void given_whenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
-        Article article = Article.of("new article", "new content", "new hashtag");
+        Article article = createInstances.createArticle();
 
         // When
         articleRepository.save(article);

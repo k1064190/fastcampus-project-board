@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.service;
 
+import com.fastcampus.projectboard.createInstances;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.UserAccount;
@@ -37,7 +38,7 @@ class ArticleCommentServiceTest {
     void givenArticleId_whenSearchingArticleComments_thenReturnsArticleComments() {
         // Given
         Long articleId = 1L;
-        ArticleComment expected = createArticleComment("content");
+        ArticleComment expected = createInstances.createArticleComment("content");
         given(articleCommentRepository.findByArticle_Id(articleId)).willReturn(List.of(expected));
         // When
         List<ArticleCommentDto> dto = sut.searchArticleComment(1L);
@@ -52,7 +53,7 @@ class ArticleCommentServiceTest {
     void givenArticleCommentInfo_whenSavingArticleComment_thenSavesArticleComments() {
         // Given
         Long articleId = 1L;
-        ArticleCommentDto dto = createArticleCommentDto();
+        ArticleCommentDto dto = createInstances.createArticleCommentDto();
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
         // When
         sut.saveArticleComment(dto);
@@ -84,29 +85,5 @@ class ArticleCommentServiceTest {
 
         // Then
         then(articleCommentRepository).should().delete(any(ArticleComment.class));
-    }
-
-    private ArticleComment createArticleComment(String content) {
-        return ArticleComment.of(createUserAccount(), createArticle(), content);
-    }
-
-    private UserAccount createUserAccount() {
-        return UserAccount.of("gagasbandas", "password", "gagasbandas@gmail.com", "gagasbandas", null);
-    }
-
-    private Article createArticle() {
-        return Article.of(createUserAccount(), "title", "content", "hashtag");
-    }
-
-    private ArticleCommentDto createArticleCommentDto() {
-        return ArticleCommentDto.of(Long.valueOf(1), createArticleDto(), createUserAccountDto(), "content", LocalDateTime.now(), "gagasbandas");
-    }
-
-    private ArticleDto createArticleDto() {
-        return ArticleDto.of(Long.valueOf(1), createUserAccountDto(), "title", "content", "hashtag", LocalDateTime.now(), "gagasbandas");
-    }
-
-    private UserAccountDto createUserAccountDto() {
-        return UserAccountDto.of(Long.valueOf(1), "gagasbandas", "password", "gagasbandas@gmail.com", "gagasbandas", "memo", LocalDateTime.now(), "gagasbandas");
     }
 }
