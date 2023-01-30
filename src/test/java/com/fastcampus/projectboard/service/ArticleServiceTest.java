@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
@@ -70,7 +69,7 @@ class ArticleServiceTest {
         Article article = CreateInstance.createArticle(CreateInstance.createUserAccount());
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
         // When
-        ArticleWithCommentsDto dto = sut.getArticles(articleId);
+        ArticleWithCommentsDto dto = sut.getArticle(articleId);
         // Then
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
@@ -87,7 +86,7 @@ class ArticleServiceTest {
         given(articleRepository.findById(articleId)).willThrow(new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
         // When
         Throwable t = catchThrowable(() -> {
-            sut.getArticles(articleId);
+            sut.getArticle(articleId);
         });
         // Then
         assertThat(t)

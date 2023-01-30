@@ -5,6 +5,7 @@ import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.ArticleDto;
+import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 
 public class CreateInstance {
     public static UserAccount createUserAccount() {
@@ -33,5 +34,9 @@ public class CreateInstance {
 
     public static ArticleCommentDto createArticleCommentDto(String content) {
         return ArticleCommentDto.from(createArticleComment(createArticle(createUserAccount()), createUserAccount(), content));
+    }
+
+    public static ArticleWithCommentsDto createArticleWithCommentsDto() {
+        return ArticleWithCommentsDto.from(createArticle(createUserAccount()));
     }
 }
