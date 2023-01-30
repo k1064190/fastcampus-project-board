@@ -107,7 +107,6 @@ class ArticleCommentServiceTest {
         sut.updateArticleComment(newDto);
         // Then
         then(articleCommentRepository).should().getReferenceById(newDto.id());
-        then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
     @DisplayName("댓글 ID가 주어지면, 해당 게시글의 댓글을 삭제한다.")
