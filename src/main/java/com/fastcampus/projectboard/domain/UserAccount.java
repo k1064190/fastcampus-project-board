@@ -22,9 +22,9 @@ public class UserAccount extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 사용자 번호
 
-    @Setter @Column(nullable = false, length = 50) private String userId;
+    @Setter @Column(nullable = false, length = 50, unique = true) private String userId;
     @Setter @Column(nullable = false) private String userPassword;
-    @Setter @Column(length = 100) private String email;
+    @Setter @Column(length = 100, unique = true) private String email;
     @Setter @Column(length = 100) private String nickname;
     @Setter private String memo;
 
