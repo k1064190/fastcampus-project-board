@@ -27,18 +27,16 @@ public class ArticleCommentService {
     public List<ArticleCommentDto> searchArticleComments(Long articleId) {
         return articleCommentRepository.findByArticle_Id(articleId).stream()
                 .map(ArticleCommentDto::from)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void saveArticleComment(ArticleCommentDto articleCommentDto) {
         try {
             Article article = articleRepository.getReferenceById(articleCommentDto.articleId());
             ArticleComment articleComment = articleCommentDto.toEntity(article);
-            articleComment.setArticle(article);
-            article.getArticleComments().add(articleComment);
             articleCommentRepository.save(articleComment);
         } catch (EntityNotFoundException e) {
-            log.warn("게시글이 존재하지 않습니다 - articleId : {}", articleCommentDto.articleId());
+            log.warn("댓글 저장 실패. 댓글의 게시글을 찾을 수 없습니다 - dto : {}", articleCommentDto);
         }
     }
 
@@ -47,7 +45,7 @@ public class ArticleCommentService {
             ArticleComment articleComment = articleCommentRepository.getReferenceById(articleCommentDto.id());
             if(articleCommentDto.content() != null) articleComment.setContent(articleCommentDto.content());
         } catch (EntityNotFoundException e) {
-            log.warn("댓글이 존재하지 않습니다 - articleCommentId : {}", articleCommentDto.id());
+            log.warn("댓글이 존재하지 않습니다 - dto : {}", articleCommentDto);
         }
     }
 
