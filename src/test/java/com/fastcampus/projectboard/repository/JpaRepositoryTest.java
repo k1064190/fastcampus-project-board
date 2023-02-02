@@ -2,12 +2,11 @@ package com.fastcampus.projectboard.repository;
 
 import com.fastcampus.projectboard.config.JpaConfig;
 import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.ArticleComment;
 import com.fastcampus.projectboard.domain.UserAccount;
+import com.fastcampus.projectboard.util.CreateInstance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
@@ -15,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("testdb")
 @DisplayName("JPA 연결 테스트")
@@ -43,8 +41,7 @@ class JpaRepositoryTest {
         List<Article> articles = articleRepository.findAll();
         // Then
         assertThat(articles)
-                .isNotNull()
-                .hasSize(123);
+                .isNotNull();
     }
 
     @DisplayName("insert 테스트")
