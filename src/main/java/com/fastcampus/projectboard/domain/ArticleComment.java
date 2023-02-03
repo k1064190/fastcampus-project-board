@@ -20,7 +20,7 @@ public class ArticleComment extends AuditingFields {
     private Long id; // 댓글 번호
 
     @Setter @ManyToOne(optional = false) private Article article; // 댓글이 달린 게시글
-    @Setter @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
+    @Setter @ManyToOne(optional = false) @JoinColumn(name="userId") private UserAccount userAccount; // 유저 정보 (ID)
     @Setter @Column(nullable = false, length = 500) private String content; // 댓글 내용
 
     protected ArticleComment() {}

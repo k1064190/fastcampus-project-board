@@ -1,4 +1,4 @@
-package com.fastcampus.projectboard.repository;
+package com.fastcampus.projectboard.util;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
@@ -6,12 +6,16 @@ import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
+import com.fastcampus.projectboard.dto.UserAccountDto;
 
 public class CreateInstance {
     public static UserAccount createUserAccount() {
         return UserAccount.of("test", "test", "test", "test", "test");
     }
 
+    public static UserAccountDto createUserAccountDto() {
+        return UserAccountDto.of("test", "test", "test", "test", "test");
+    }
     public static Article createArticle(UserAccount userAccount) {
         return Article.of(userAccount, "test", "test", "test");
     }

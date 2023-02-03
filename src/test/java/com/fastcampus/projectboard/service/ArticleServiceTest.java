@@ -1,11 +1,11 @@
 package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.type.SearchType;
+import com.fastcampus.projectboard.domain.constant.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
-import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
-import com.fastcampus.projectboard.repository.CreateInstance;
+import com.fastcampus.projectboard.repository.UserAccountRepository;
+import com.fastcampus.projectboard.util.CreateInstance;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +33,9 @@ class ArticleServiceTest {
 
     @Mock
     private ArticleRepository articleRepository;
+
+    @Mock
+    private UserAccountRepository userAccountRepository;
 
     @DisplayName("검색어 없이 게시글을 검색하면, 게시글 페이지를 반환한다.")
     @Test
@@ -109,7 +112,7 @@ class ArticleServiceTest {
         Article article = CreateInstance.createArticle(CreateInstance.createUserAccount());
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
         // When
-        ArticleWithCommentsDto dto = sut.getArticle(articleId);
+        ArticleDto dto = sut.getArticle(articleId);
         // Then
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
@@ -140,7 +143,7 @@ class ArticleServiceTest {
     void givenArticleInfo_whenCreatingArticle_thenSavesArticle() {
         // Given
         ArticleDto articleDto = CreateInstance.createArticleDto();
-        given(articleRepository.save(any(Article.class))).willReturn(CreateInstance.createArticle(CreateInstance.createUserAccount()));
+        given(articleRepository.save(any(Article.class))).willReturn(null);
         // When
         sut.saveArticle(articleDto);
         // Then
@@ -151,30 +154,32 @@ class ArticleServiceTest {
     @Test
     void givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle() {
         // Given
+        Long articleId = 1L;
         ArticleDto articleDto = CreateInstance.createArticleDto();
         Article article = CreateInstance.createArticle(CreateInstance.createUserAccount());
-        given(articleRepository.getReferenceById(articleDto.id())).willReturn(article);
+        given(articleRepository.getReferenceById(articleId)).willReturn(article);
         // When
-        sut.updateArticle(articleDto);
+        sut.updateArticle(articleId, articleDto);
         // Then
         assertThat(article)
                 .hasFieldOrPropertyWithValue("title", articleDto.title())
                 .hasFieldOrPropertyWithValue("content", articleDto.content())
                 .hasFieldOrPropertyWithValue("hashtag", articleDto.hashtag());
-        then(articleRepository).should().getReferenceById(articleDto.id());
+        then(articleRepository).should().getReferenceById(articleId);
     }
 
     @DisplayName("없는 게시글의 수정 정보를 입력하면, 경고 로그를 찍고 아무것도 하지 않는다.")
     @Test
     void givenNonExistentModifiedArticleInfo_whenUpdatingArticle_thenLogsWarningAndDoesNothing() {
         // Given
+        Long articleId = 1L;
         ArticleDto articleDto = CreateInstance.createArticleDto();
-        given(articleRepository.getReferenceById(articleDto.id())).willThrow(EntityNotFoundException.class);
+        given(articleRepository.getReferenceById(articleId)).willThrow(EntityNotFoundException.class);
         // When
-        sut.updateArticle(articleDto);
+        sut.updateArticle(articleId, articleDto);
         // Then
         then(articleRepository).shouldHaveNoMoreInteractions();
-        then(articleRepository).should().getReferenceById(articleDto.id());
+        then(articleRepository).should().getReferenceById(articleId);
     }
 
     @DisplayName("게시글의 ID를 입력하면, 게시글을 삭제한다.")
