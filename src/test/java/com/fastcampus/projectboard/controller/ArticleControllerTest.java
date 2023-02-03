@@ -137,19 +137,6 @@ class ArticleControllerTest {
         then(articleService).should().getArticleWithComments(articleId);
     }
 
-    @Disabled("구현 중")
-    @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
-    @Test
-    public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
-        // Given
-
-        // When & Then
-        mvc.perform(get("/articles/search"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("articles/search"));
-    }
-
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnsSearchArticleHashtagView() throws Exception {
@@ -219,10 +206,10 @@ class ArticleControllerTest {
 
         // When & Then
         mvc.perform(post("/articles/form")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .content(formDataEncoder.encode(articleRequest))
-                .with(csrf())
-        )
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .content(formDataEncoder.encode(articleRequest))
+                        .with(csrf())
+                )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articles"))
                 .andExpect(redirectedUrl("/articles"));

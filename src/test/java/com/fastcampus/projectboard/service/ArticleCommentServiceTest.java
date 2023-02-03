@@ -1,9 +1,11 @@
 package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.ArticleComment;
+import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.repository.ArticleCommentRepository;
 import com.fastcampus.projectboard.repository.ArticleRepository;
+import com.fastcampus.projectboard.repository.UserAccountRepository;
 import com.fastcampus.projectboard.util.CreateInstance;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +29,7 @@ class ArticleCommentServiceTest {
 
     @Mock private ArticleRepository articleRepository;
     @Mock private ArticleCommentRepository articleCommentRepository;
+    @Mock private UserAccountRepository userAccountRepository;
 
     @DisplayName("게시글 ID가 주어지면, 해당 게시글의 댓글 목록을 조회한다.")
     @Test
@@ -57,11 +60,13 @@ class ArticleCommentServiceTest {
         // Given
         ArticleCommentDto dto = CreateInstance.createArticleCommentDto();
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(CreateInstance.createArticle(CreateInstance.createUserAccount()));
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(CreateInstance.createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
         // When
         sut.saveArticleComment(dto);
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
@@ -75,6 +80,7 @@ class ArticleCommentServiceTest {
         sut.saveArticleComment(dto);
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
+        then(userAccountRepository).shouldHaveNoInteractions();
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
