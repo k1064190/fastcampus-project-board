@@ -10,18 +10,31 @@ import com.fastcampus.projectboard.dto.UserAccountDto;
 
 public class CreateInstance {
     public static UserAccount createUserAccount() {
-        return UserAccount.of("test", "test", "test", "test", "test");
+        return UserAccount.of("createdByUserAccount", "test", "test", "test", "test");
+    }
+
+    public static UserAccount createUserAccount(String userId) {
+        return UserAccount.of(userId, "test", "test", "test", "test");
     }
 
     public static UserAccountDto createUserAccountDto() {
-        return UserAccountDto.of("test", "test", "test", "test", "test");
+        return UserAccountDto.of("createdByUserAccountDto", "test", "test", "test", "test");
+    }
+
+    public static UserAccountDto createUserAccountDto(String userId) {
+        return UserAccountDto.of(userId, "test", "test", "test", "test");
     }
     public static Article createArticle(UserAccount userAccount) {
-        return Article.of(userAccount, "test", "test", "test");
+        return Article.of(userAccount, "createdByArticle", "test", "test");
     }
 
     public static ArticleDto createArticleDto() {
-        return ArticleDto.from(createArticle(createUserAccount()));
+        return ArticleDto.of(
+                createUserAccountDto("createdByArticleDto"),
+                "createdByArticleDto",
+                "test",
+                "test"
+        );
     }
 
     public static ArticleComment createArticleComment(Article article, UserAccount userAccount) {
