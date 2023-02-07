@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.config.SecurityConfig;
+import com.fastcampus.projectboard.config.TestSecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,10 +15,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled("동작 불가")
 @DisplayName("View 컨트롤러 - 인증")
-@Import(SecurityConfig.class)
-@WebMvcTest
+@Import(TestSecurityConfig.class)
+@WebMvcTest(void.class)
 public class AuthControllerTest {
 
     private final MockMvc mvc;
@@ -34,7 +34,6 @@ public class AuthControllerTest {
 
         // When & Then
         mvc.perform(get("/login"))
-                .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
     }
 

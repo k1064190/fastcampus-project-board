@@ -36,13 +36,17 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/")
                     .and()
                 .build();
+//        return http
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .formLogin().and()
+//                .build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // static resources
-        return webSecurity -> webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        // static resources
+//        return webSecurity -> webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
 
     @Bean
     public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {

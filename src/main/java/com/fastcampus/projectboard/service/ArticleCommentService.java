@@ -53,9 +53,9 @@ public class ArticleCommentService {
         }
     }
 
-    public void deleteArticleComment(Long articleCommentId) {
+    public void deleteArticleComment(Long articleCommentId, String userId) {
         try {
-            articleCommentRepository.deleteById(articleCommentId);
+            articleCommentRepository.deleteByIdAndUserAccount_UserId(articleCommentId, userId);
         } catch (EntityNotFoundException e) {
             log.warn("댓글이 존재하지 않습니다 - articleCommentId : {}", articleCommentId);
         }

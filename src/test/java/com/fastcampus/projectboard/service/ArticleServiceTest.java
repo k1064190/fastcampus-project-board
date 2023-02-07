@@ -7,6 +7,7 @@ import com.fastcampus.projectboard.repository.ArticleRepository;
 import com.fastcampus.projectboard.repository.UserAccountRepository;
 import com.fastcampus.projectboard.util.CreateInstance;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -154,18 +155,19 @@ class ArticleServiceTest {
     @Test
     void givenModifiedArticleInfo_whenUpdatingArticle_thenUpdatesArticle() {
         // Given
-        Long articleId = 1L;
-        ArticleDto articleDto = CreateInstance.createArticleDto();
-        Article article = CreateInstance.createArticle(CreateInstance.createUserAccount());
-        given(articleRepository.getReferenceById(articleId)).willReturn(article);
+        ArticleDto dto = CreateInstance.createArticleDto();
+        Article article = CreateInstance.createArticle(CreateInstance.createUserAccount("createdByArticleDto"));
+        given(articleRepository.getReferenceById(dto.id())).willReturn(article);
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(dto.userAccountDto().toEntity());
         // When
-        sut.updateArticle(articleId, articleDto);
+        sut.updateArticle(dto.id(), dto);
         // Then
         assertThat(article)
-                .hasFieldOrPropertyWithValue("title", articleDto.title())
-                .hasFieldOrPropertyWithValue("content", articleDto.content())
-                .hasFieldOrPropertyWithValue("hashtag", articleDto.hashtag());
-        then(articleRepository).should().getReferenceById(articleId);
+                .hasFieldOrPropertyWithValue("title", dto.title())
+                .hasFieldOrPropertyWithValue("content", dto.content())
+                .hasFieldOrPropertyWithValue("hashtag", dto.hashtag());
+        then(articleRepository).should().getReferenceById(dto.id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
     }
 
     @DisplayName("없는 게시글의 수정 정보를 입력하면, 경고 로그를 찍고 아무것도 하지 않는다.")
@@ -187,10 +189,11 @@ class ArticleServiceTest {
     void givenArticleId_whenDeletingArticle_thenDeletesArticle() {
         // Given
         Long articleId = 1L;
-        willDoNothing().given(articleRepository).deleteById(articleId);
+        String userId = "uno";
+        willDoNothing().given(articleRepository).deleteByIdAndUserAccount_UserId(articleId, userId);
         // When
-        sut.deleteArticle(articleId);
+        sut.deleteArticle(articleId, userId);
         // Then
-        then(articleRepository).should().deleteById(articleId);
+        then(articleRepository).should().deleteByIdAndUserAccount_UserId(articleId, userId);
     }
 }
