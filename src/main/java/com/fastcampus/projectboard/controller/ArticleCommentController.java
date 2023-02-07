@@ -21,6 +21,9 @@ public class ArticleCommentController {
 
     @PostMapping("/new")
     public String postNewArticleComment(ArticleCommentRequest articleCommentRequest, @AuthenticationPrincipal BoardPrincipal boardPrincipal) {
+        if(articleCommentRequest.content().isEmpty() || articleCommentRequest.content().isBlank()) {
+            return "redirect:/articles/" + articleCommentRequest.articleId();
+        }
         articleCommentService.saveArticleComment(articleCommentRequest.toDto(boardPrincipal.toDto()));
         return "redirect:/articles/" + articleCommentRequest.articleId();
     }
