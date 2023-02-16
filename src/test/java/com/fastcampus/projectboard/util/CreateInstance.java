@@ -2,11 +2,11 @@ package com.fastcampus.projectboard.util;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
+import com.fastcampus.projectboard.domain.Hashtag;
 import com.fastcampus.projectboard.domain.UserAccount;
-import com.fastcampus.projectboard.dto.ArticleCommentDto;
-import com.fastcampus.projectboard.dto.ArticleDto;
-import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
-import com.fastcampus.projectboard.dto.UserAccountDto;
+import com.fastcampus.projectboard.dto.*;
+
+import java.util.Set;
 
 public class CreateInstance {
     public static UserAccount createUserAccount() {
@@ -25,7 +25,9 @@ public class CreateInstance {
         return UserAccountDto.of(userId, "test", "test", "test", "test");
     }
     public static Article createArticle(UserAccount userAccount) {
-        return Article.of(userAccount, "createdByArticle", "test");
+        Article article = Article.of(userAccount, "createdByArticle", "test");
+        article.addHashtags(Set.of(Hashtag.of("test"), Hashtag.of("test2")));
+        return article;
     }
 
     public static ArticleDto createArticleDto() {
@@ -33,7 +35,16 @@ public class CreateInstance {
                 createUserAccountDto("createdByArticleDto"),
                 "createdByArticleDto",
                 "test",
-                null
+                Set.of(HashtagDto.of("test"))
+        );
+    }
+
+    public static ArticleDto createArticleDto(UserAccount userAccount, String title, String content) {
+        return ArticleDto.of(
+                createUserAccountDto(userAccount.getUserId()),
+                title,
+                content,
+                Set.of()
         );
     }
 

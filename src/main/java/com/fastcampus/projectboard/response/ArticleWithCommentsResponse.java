@@ -15,7 +15,7 @@ public record ArticleWithCommentsResponse (
         Long id,
         String title,
         String content,
-        Set<Hashtag> hashtags,
+        Set<String> hashtags,
         LocalDateTime createdAt,
         String email,
         String nickname,
@@ -23,7 +23,7 @@ public record ArticleWithCommentsResponse (
         Set<ArticleCommentResponse> articleCommentResponses
 ) {
 
-    public static ArticleWithCommentsResponse of(Long id, String title, String content, Set<Hashtag> hashtags, LocalDateTime createdAt, String email, String nickname, String userId, Set<ArticleCommentResponse> articleCommentResponses) {
+    public static ArticleWithCommentsResponse of(Long id, String title, String content, Set<String> hashtags, LocalDateTime createdAt, String email, String nickname, String userId, Set<ArticleCommentResponse> articleCommentResponses) {
         return new ArticleWithCommentsResponse(id, title, content, hashtags, createdAt, email, nickname, userId, articleCommentResponses);
     }
 
@@ -36,8 +36,8 @@ public record ArticleWithCommentsResponse (
                 dto.id(),
                 dto.title(),
                 dto.content(),
-                dto.HashtagDtos().stream()
-                        .map(HashtagDto::toEntity)
+                dto.hashtagDtos().stream()
+                        .map(HashtagDto::hashtagName)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
