@@ -11,6 +11,7 @@ import com.fastcampus.projectboard.request.ArticleRequest;
 import com.fastcampus.projectboard.response.ArticleResponse;
 import com.fastcampus.projectboard.service.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
+import com.fastcampus.projectboard.util.CreateInstance;
 import com.fastcampus.projectboard.util.FormDataEncoder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -289,7 +290,7 @@ class ArticleControllerTest {
     void givenAuthorizedUser_whenRequesting_thenReturnsUpdatedArticlePage() throws Exception {
         // Given
         long articleId = 1L;
-        ArticleDto dto = createArticleDto();
+        ArticleDto dto = CreateInstance.createArticleDto();
         given(articleService.getArticle(articleId)).willReturn(dto);
 
         // When & Then
@@ -343,16 +344,6 @@ class ArticleControllerTest {
                 .andExpect(view().name("redirect:/articles"))
                 .andExpect(redirectedUrl("/articles"));
         then(articleService).should().deleteArticle(articleId, userId);
-    }
-
-
-    private ArticleDto createArticleDto() {
-        return ArticleDto.of(
-                createUserAccountDto(),
-                "title",
-                "content",
-                Set.of(HashtagDto.of("java"))
-        );
     }
 
     private ArticleWithCommentsDto createArticleWithCommentsDto() {

@@ -7,6 +7,7 @@ import com.fastcampus.projectboard.dto.HashtagDto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,13 +15,13 @@ public record ArticleResponse(
         Long id,
         String title,
         String content,
-        Set<Hashtag> hashtags,
+        Set<String> hashtags,
         LocalDateTime createdAt,
         String email,
         String nickname
 ) {
 
-    public static ArticleResponse of(Long id, String title, String content, Set<Hashtag> hashtags, LocalDateTime createdAt, String email, String nickname) {
+    public static ArticleResponse of(Long id, String title, String content, Set<String> hashtags, LocalDateTime createdAt, String email, String nickname) {
         return new ArticleResponse(id, title, content, hashtags, createdAt, email, nickname);
     }
 
@@ -34,11 +35,23 @@ public record ArticleResponse(
                 dto.title(),
                 dto.content(),
                 dto.hashtagDtos().stream()
-                        .map(HashtagDto::toEntity)
+                        .map(HashtagDto::hashtagName)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
                 nickname
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArticleResponse that)) return false;
+        return o != null && Objects.equals(this.id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
     }
 }
