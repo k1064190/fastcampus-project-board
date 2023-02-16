@@ -25,7 +25,7 @@ public class CreateInstance {
         return UserAccountDto.of(userId, "test", "test", "test", "test");
     }
     public static Article createArticle(UserAccount userAccount) {
-        return Article.of(userAccount, "createdByArticle", "test", "test");
+        return Article.of(userAccount, "createdByArticle", "test");
     }
 
     public static ArticleDto createArticleDto() {
@@ -33,7 +33,7 @@ public class CreateInstance {
                 createUserAccountDto("createdByArticleDto"),
                 "createdByArticleDto",
                 "test",
-                "test"
+                null
         );
     }
 
