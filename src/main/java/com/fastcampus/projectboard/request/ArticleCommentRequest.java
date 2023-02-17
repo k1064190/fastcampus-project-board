@@ -3,8 +3,6 @@ package com.fastcampus.projectboard.request;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 
-import java.io.Serializable;
-
 public record ArticleCommentRequest(
         Long articleId,
         Long parentCommentId,

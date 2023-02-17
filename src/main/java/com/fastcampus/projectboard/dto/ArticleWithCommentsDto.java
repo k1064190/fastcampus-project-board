@@ -1,7 +1,6 @@
 package com.fastcampus.projectboard.dto;
 
 import com.fastcampus.projectboard.domain.Article;
-import com.fastcampus.projectboard.domain.Hashtag;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
