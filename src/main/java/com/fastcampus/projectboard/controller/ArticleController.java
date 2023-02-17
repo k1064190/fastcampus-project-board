@@ -2,16 +2,13 @@ package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.domain.constant.FormStatus;
 import com.fastcampus.projectboard.domain.constant.SearchType;
-import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.request.ArticleRequest;
 import com.fastcampus.projectboard.response.ArticleResponse;
 import com.fastcampus.projectboard.response.ArticleWithCommentsResponse;
 import com.fastcampus.projectboard.security.BoardPrincipal;
 import com.fastcampus.projectboard.service.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

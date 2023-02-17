@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 import java.util.List;
 
-import static com.querydsl.jpa.JPAExpressions.select;
-
 public class HashtagRepositoryImpl extends QuerydslRepositorySupport implements HashtagRepositoryCustom {
 
     public HashtagRepositoryImpl() {

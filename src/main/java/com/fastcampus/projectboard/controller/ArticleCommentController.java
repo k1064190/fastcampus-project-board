@@ -1,7 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
 
-import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.request.ArticleCommentRequest;
 import com.fastcampus.projectboard.security.BoardPrincipal;
 import com.fastcampus.projectboard.service.ArticleCommentService;
