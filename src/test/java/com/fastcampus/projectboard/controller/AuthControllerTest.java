@@ -1,8 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
-import com.fastcampus.projectboard.config.SecurityConfig;
 import com.fastcampus.projectboard.config.TestSecurityConfig;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("View 컨트롤러 - 인증")
 @Import(TestSecurityConfig.class)
