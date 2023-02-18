@@ -22,6 +22,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/",
