@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 "/articles",
                                 "/articles/search-hashtag"
                         ).permitAll()
+                        .requestMatchers("/v3/api-docs/**","/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
