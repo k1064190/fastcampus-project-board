@@ -52,6 +52,18 @@ public record BoardPrincipal(
         );
     }
 
+    public static BoardPrincipal of(String username, String password, Collection<? extends GrantedAuthority> authorities, String email, String nickname, String memo, Map<String, Object> oAuth2Attributes) {
+        return new BoardPrincipal(
+                username,
+                password,
+                authorities,
+                email,
+                nickname,
+                memo,
+                oAuth2Attributes
+        );
+    }
+
     public static BoardPrincipal from(UserAccountDto dto) {
         return BoardPrincipal.of(
                 dto.userId(),

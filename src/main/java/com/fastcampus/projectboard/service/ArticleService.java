@@ -145,7 +145,7 @@ public class ArticleService {
     }
 
     public List<String> getHashtags() {
-        return hashtagRepository.findAllHashtagNames();
+        return hashtagRepository.findAllHashtagNames(); // TODO: HashtagService로 이동을 고려해보자.
     }
 
 }
