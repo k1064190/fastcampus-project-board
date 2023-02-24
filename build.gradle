@@ -71,3 +71,8 @@ sourceSets {
 clean {
 	delete file(generated)
 }
+
+// codedeploy를 위해 jar 파일을 생성할 때, plain.jar이 생성되지 않도록 설정
+jar {
+	enabled = false
+}
