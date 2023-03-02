@@ -76,3 +76,7 @@ clean {
 jar {
 	enabled = false
 }
+
+tasks.getByName("jar") {
+	enabled = false
+}
