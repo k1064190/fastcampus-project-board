@@ -17,16 +17,27 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-app:
 
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout the code
+      uses: actions/checkout@v5
+
     - name: 'Set up latest Oracle JDK 17'
       uses: oracle-actions/setup-java@v1
       with:
         website: oracle.com
         release: 17
+    - name: Restore gradle.properties
+        env:
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+        shell: bash
+        run: |
+          mkdir -p ~/.gradle/
+          echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
+          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
